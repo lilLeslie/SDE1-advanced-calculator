@@ -46,9 +46,12 @@ public class CalculatorController {
     private Button btnComma;
     @FXML
     private Button btnEquals;
-
+    private StringBuilder calculation = new StringBuilder();
 
     public void onBtnClearClick(ActionEvent actionEvent) {
+        calculation.setLength(0);
+        calculation.append("0");
+        lblResult.setText(calculation.toString());
     }
 
     public void onBtnPlusMinusClick(ActionEvent actionEvent) {
@@ -61,42 +64,52 @@ public class CalculatorController {
     }
 
     public void onBtnSevenClick(ActionEvent actionEvent) {
+        appendToResult("7");
     }
 
     public void onBtnEightClick(ActionEvent actionEvent) {
+        appendToResult("8");
     }
 
     public void onBtnNineClick(ActionEvent actionEvent) {
+        appendToResult("9");
     }
 
     public void onBtnMultiplyClick(ActionEvent actionEvent) {
     }
 
     public void onBtnFourClick(ActionEvent actionEvent) {
+        appendToResult("4");
     }
 
     public void onBtnFiveClick(ActionEvent actionEvent) {
+        appendToResult("5");
     }
 
     public void onBtnSixClick(ActionEvent actionEvent) {
+        appendToResult("6");
     }
 
     public void onBtnSubtractClick(ActionEvent actionEvent) {
     }
 
     public void onBtnOneClick(ActionEvent actionEvent) {
+        appendToResult("1");
     }
 
     public void onBtnTwoClick(ActionEvent actionEvent) {
+        appendToResult("2");
     }
 
     public void onBtnThreeClick(ActionEvent actionEvent) {
+        appendToResult("3");
     }
 
     public void onBtnAddClick(ActionEvent actionEvent) {
     }
 
     public void onBtnZeroClick(ActionEvent actionEvent) {
+        appendToResult("0");
     }
 
     public void onBtnCommaClick(ActionEvent actionEvent) {
@@ -104,4 +117,15 @@ public class CalculatorController {
 
     public void onBtnEqualsClick(ActionEvent actionEvent) {
     }
+
+    private void appendToResult(String number){
+        if (calculation.toString().equals("0")){
+            calculation.setLength(0);
+            calculation.append(number);
+        } else {
+            calculation.append(number);
+        }
+            lblResult.setText(calculation.toString());
+    }
+
 }
