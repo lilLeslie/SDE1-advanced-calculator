@@ -7,8 +7,9 @@ import javafx.scene.control.Label;
 
 public class CalculatorController {
     @FXML
-    private Label lblResult;
+    private Label lblCalculation;
     @FXML
+    private Label lblInput;
     private Button btnClear;
     @FXML
     private Button btnPlusMinus;
@@ -48,10 +49,15 @@ public class CalculatorController {
     private Button btnEquals;
     private StringBuilder calculation = new StringBuilder();
 
+    private String operatorClicked = "";
+    private int firstNumber;
+    private int secondNumber;
+
     public void onBtnClearClick(ActionEvent actionEvent) {
         calculation.setLength(0);
         calculation.append("0");
-        lblResult.setText(calculation.toString());
+        lblInput.setText(calculation.toString());
+        lblCalculation.setText(calculation.toString());
     }
 
     public void onBtnPlusMinusClick(ActionEvent actionEvent) {
@@ -61,10 +67,7 @@ public class CalculatorController {
     }
 
     public void onBtnDivideClick(ActionEvent actionEvent) {
-        if (!calculation.toString().equals("0")){
-            calculation.append("÷");
-            lblResult.setText(calculation.toString());
-        }
+        onOperatorClick("÷");
     }
 
     public void onBtnSevenClick(ActionEvent actionEvent) {
@@ -80,10 +83,7 @@ public class CalculatorController {
     }
 
     public void onBtnMultiplyClick(ActionEvent actionEvent) {
-        if (!calculation.toString().equals("0")) {
-            calculation.append("×");
-            lblResult.setText(calculation.toString());
-        }
+        onOperatorClick("×");
     }
 
     public void onBtnFourClick(ActionEvent actionEvent) {
@@ -99,10 +99,7 @@ public class CalculatorController {
     }
 
     public void onBtnSubtractClick(ActionEvent actionEvent) {
-        if (!calculation.toString().equals("0")) {
-            calculation.append("-");
-            lblResult.setText(calculation.toString());
-        }
+        onOperatorClick("-");
     }
 
     public void onBtnOneClick(ActionEvent actionEvent) {
@@ -118,10 +115,7 @@ public class CalculatorController {
     }
 
     public void onBtnAddClick(ActionEvent actionEvent) {
-        if (!calculation.toString().equals("0")) {
-            calculation.append("+");
-            lblResult.setText(calculation.toString());
-        }
+        onOperatorClick("+");
     }
 
     public void onBtnZeroClick(ActionEvent actionEvent) {
@@ -132,17 +126,56 @@ public class CalculatorController {
     }
 
     public void onBtnEqualsClick(ActionEvent actionEvent) {
-        if ()
+        if (!operatorClicked.isEmpty()) {
+            int result = 0;
+            secondNumber = Integer.parseInt(lblInput.getText());
+            switch (operatorClicked) {
+                case "÷":
+                    result = firstNumber / secondNumber;
+                    break;
+                case "×":
+                    result = firstNumber * secondNumber;
+                    break;
+                case "-":
+                    result = firstNumber - secondNumber;
+                    break;
+                case "+":
+                    result = firstNumber + secondNumber;
+            }
+            calculation.append("=").append(result);
+            lblCalculation.setText(calculation.toString());
+            lblInput.setText(result + "");
+        }
     }
 
     private void appendToResult(String number) {
         if (calculation.toString().equals("0")) {
             calculation.setLength(0);
             calculation.append(number);
+            lblInput.setText(calculation.toString());
+
+        } else if (!operatorClicked.isEmpty()) {
+            lblInput.setText(number);
+            calculation.append(number);
         } else {
             calculation.append(number);
+            lblInput.setText(calculation.toString());
         }
-        lblResult.setText(calculation.toString());
+    }
+
+    private void onOperatorClick(String symbol) {
+        if (!calculation.toString().equals("0")) {
+            firstNumber = Integer.parseInt(calculation.toString());
+            calculation.append(symbol);
+            lblCalculation.setText(calculation.toString());
+            operatorClicked = symbol;
+        }
+    }
+
+    private void setLblCalculation(String string){
+        calculation.setLength(0);
+        calculation.append(string);
+        lblCalculation.setText(calculation.toString());
     }
 
 }
