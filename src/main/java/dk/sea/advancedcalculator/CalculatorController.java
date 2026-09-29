@@ -2,6 +2,7 @@ package dk.sea.advancedcalculator;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
@@ -10,6 +11,7 @@ public class CalculatorController {
     private Label lblCalculation;
     @FXML
     private Label lblInput;
+    @FXML
     private Button btnClear;
     @FXML
     private Button btnPlusMinus;
@@ -52,6 +54,30 @@ public class CalculatorController {
     private String operatorClicked = "";
     private int firstNumber;
     private int secondNumber;
+
+    public void initialize(){
+        btnZero.getStyleClass().add("btnNumber");
+        btnOne.getStyleClass().add("btnNumber");
+        btnTwo.getStyleClass().add("btnNumber");
+        btnThree.getStyleClass().add("btnNumber");
+        btnFour.getStyleClass().add("btnNumber");
+        btnFive.getStyleClass().add("btnNumber");
+        btnSix.getStyleClass().add("btnNumber");
+        btnSeven.getStyleClass().add("btnNumber");
+        btnEight.getStyleClass().add("btnNumber");
+        btnNine.getStyleClass().add("btnNumber");
+        btnComma.getStyleClass().add("btnNumber");
+
+        btnClear.getStyleClass().add("btnOperator");
+        btnPlusMinus.getStyleClass().add("btnOperator");
+        btnPercent.getStyleClass().add("btnOperator");
+        btnDivide.getStyleClass().add("btnOperator");
+        btnMultiply.getStyleClass().add("btnOperator");
+        btnSubtract.getStyleClass().add("btnOperator");
+        btnAdd.getStyleClass().add("btnOperator");
+        btnComma.getStyleClass().add("btnNumber");
+        btnEquals.getStyleClass().add("btnOperator");
+    }
 
     public void onBtnClearClick(ActionEvent actionEvent) {
         calculation.setLength(0);
@@ -149,7 +175,7 @@ public class CalculatorController {
     }
 
     private void appendToResult(String number) {
-        if (calculation.toString().equals("0")) {
+        if (lblInput.getText().equals("0")) {
             calculation.setLength(0);
             calculation.append(number);
             lblInput.setText(calculation.toString());
@@ -171,11 +197,4 @@ public class CalculatorController {
             operatorClicked = symbol;
         }
     }
-
-    private void setLblCalculation(String string){
-        calculation.setLength(0);
-        calculation.append(string);
-        lblCalculation.setText(calculation.toString());
-    }
-
 }

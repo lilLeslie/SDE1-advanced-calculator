@@ -1,0 +1,18 @@
+.btnNumber {
+    -fx-background-color: #584D99;
+    -fx-background-radius: 0;
+}
+
+.btnOperator {
+    -fx-background-color: #556FF1;
+    -fx-background-radius: 0;
+}
+
+.btnNumber:hover {
+    -fx-background-color: #685CAD;
+}
+
+.btnOperator:hover {
+    -fx-background-color: #687FF3;
+}
+
