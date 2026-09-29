@@ -1,5 +1,6 @@
 package dk.sea.advancedcalculator;
 
+import dk.sea.advancedcalculator.models.CalculatorLogic;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
@@ -49,13 +50,9 @@ public class CalculatorController {
     private Button btnComma;
     @FXML
     private Button btnEquals;
-    private StringBuilder calculation = new StringBuilder();
+    CalculatorLogic cLogic = new CalculatorLogic();
 
-    private String operatorClicked = "";
-    private int firstNumber;
-    private int secondNumber;
-
-    public void initialize(){
+    public void initialize() {
         btnZero.getStyleClass().add("btnNumber");
         btnOne.getStyleClass().add("btnNumber");
         btnTwo.getStyleClass().add("btnNumber");
@@ -80,121 +77,104 @@ public class CalculatorController {
     }
 
     public void onBtnClearClick(ActionEvent actionEvent) {
-        calculation.setLength(0);
-        calculation.append("0");
-        lblInput.setText(calculation.toString());
-        lblCalculation.setText(calculation.toString());
+        cLogic.clear();
+        updateLblInput();
+        updateLblCalculation();
     }
 
     public void onBtnPlusMinusClick(ActionEvent actionEvent) {
+        cLogic.handlePlusMinus();
+        updateLblInput();
+        updateLblCalculation();
     }
 
     public void onBtnPercentClick(ActionEvent actionEvent) {
     }
 
     public void onBtnDivideClick(ActionEvent actionEvent) {
-        onOperatorClick("÷");
+        cLogic.applyOperator("÷");
+        updateLblCalculation();
     }
 
     public void onBtnSevenClick(ActionEvent actionEvent) {
-        appendToResult("7");
+        cLogic.handleDigitInput("7");
+        updateLblInput();
     }
 
     public void onBtnEightClick(ActionEvent actionEvent) {
-        appendToResult("8");
+        cLogic.handleDigitInput("8");
+        updateLblInput();
     }
 
     public void onBtnNineClick(ActionEvent actionEvent) {
-        appendToResult("9");
+        cLogic.handleDigitInput("9");
+        updateLblInput();
     }
 
     public void onBtnMultiplyClick(ActionEvent actionEvent) {
-        onOperatorClick("×");
+        cLogic.applyOperator("×");
+        updateLblCalculation();
     }
 
     public void onBtnFourClick(ActionEvent actionEvent) {
-        appendToResult("4");
+        cLogic.handleDigitInput("4");
+        updateLblInput();
     }
 
     public void onBtnFiveClick(ActionEvent actionEvent) {
-        appendToResult("5");
+        cLogic.handleDigitInput("5");
+        updateLblInput();
     }
 
     public void onBtnSixClick(ActionEvent actionEvent) {
-        appendToResult("6");
+        cLogic.handleDigitInput("6");
+        updateLblInput();
     }
 
     public void onBtnSubtractClick(ActionEvent actionEvent) {
-        onOperatorClick("-");
+        cLogic.applyOperator("-");
+        updateLblCalculation();
     }
 
     public void onBtnOneClick(ActionEvent actionEvent) {
-        appendToResult("1");
+        cLogic.handleDigitInput("1");
+        updateLblInput();
     }
 
     public void onBtnTwoClick(ActionEvent actionEvent) {
-        appendToResult("2");
+        cLogic.handleDigitInput("2");
+        updateLblInput();
     }
 
     public void onBtnThreeClick(ActionEvent actionEvent) {
-        appendToResult("3");
+        cLogic.handleDigitInput("3");
+        updateLblInput();
     }
 
     public void onBtnAddClick(ActionEvent actionEvent) {
-        onOperatorClick("+");
+        cLogic.applyOperator("+");
+        updateLblCalculation();
     }
 
     public void onBtnZeroClick(ActionEvent actionEvent) {
-        appendToResult("0");
+        cLogic.handleDigitInput("0");
+        updateLblInput();
     }
 
     public void onBtnCommaClick(ActionEvent actionEvent) {
     }
 
     public void onBtnEqualsClick(ActionEvent actionEvent) {
-        if (!operatorClicked.isEmpty()) {
-            int result = 0;
-            secondNumber = Integer.parseInt(lblInput.getText());
-            switch (operatorClicked) {
-                case "÷":
-                    result = firstNumber / secondNumber;
-                    break;
-                case "×":
-                    result = firstNumber * secondNumber;
-                    break;
-                case "-":
-                    result = firstNumber - secondNumber;
-                    break;
-                case "+":
-                    result = firstNumber + secondNumber;
-            }
-            calculation.append("=").append(result);
-            lblCalculation.setText(calculation.toString());
-            lblInput.setText(result + "");
-        }
+        cLogic.calculate();
+        updateLblInput();
+        updateLblCalculation();
     }
 
-    private void appendToResult(String number) {
-        if (lblInput.getText().equals("0")) {
-            calculation.setLength(0);
-            calculation.append(number);
-            lblInput.setText(calculation.toString());
-
-        } else if (!operatorClicked.isEmpty()) {
-            lblInput.setText(number);
-            calculation.append(number);
-        } else {
-            calculation.append(number);
-            lblInput.setText(calculation.toString());
-        }
+    public void updateLblInput(){
+        lblInput.setText(cLogic.getInput());
     }
 
-    private void onOperatorClick(String symbol) {
-        if (!calculation.toString().equals("0")) {
-            firstNumber = Integer.parseInt(calculation.toString());
-            calculation.append(symbol);
-            lblCalculation.setText(calculation.toString());
-            operatorClicked = symbol;
-        }
+    public void updateLblCalculation(){
+        lblCalculation.setText(cLogic.getCalculation());
     }
 }
