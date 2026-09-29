@@ -61,6 +61,10 @@ public class CalculatorController {
     }
 
     public void onBtnDivideClick(ActionEvent actionEvent) {
+        if (!calculation.toString().equals("0")){
+            calculation.append("÷");
+            lblResult.setText(calculation.toString());
+        }
     }
 
     public void onBtnSevenClick(ActionEvent actionEvent) {
@@ -76,6 +80,10 @@ public class CalculatorController {
     }
 
     public void onBtnMultiplyClick(ActionEvent actionEvent) {
+        if (!calculation.toString().equals("0")) {
+            calculation.append("×");
+            lblResult.setText(calculation.toString());
+        }
     }
 
     public void onBtnFourClick(ActionEvent actionEvent) {
@@ -91,6 +99,10 @@ public class CalculatorController {
     }
 
     public void onBtnSubtractClick(ActionEvent actionEvent) {
+        if (!calculation.toString().equals("0")) {
+            calculation.append("-");
+            lblResult.setText(calculation.toString());
+        }
     }
 
     public void onBtnOneClick(ActionEvent actionEvent) {
@@ -106,6 +118,10 @@ public class CalculatorController {
     }
 
     public void onBtnAddClick(ActionEvent actionEvent) {
+        if (!calculation.toString().equals("0")) {
+            calculation.append("+");
+            lblResult.setText(calculation.toString());
+        }
     }
 
     public void onBtnZeroClick(ActionEvent actionEvent) {
@@ -116,16 +132,17 @@ public class CalculatorController {
     }
 
     public void onBtnEqualsClick(ActionEvent actionEvent) {
+        if ()
     }
 
-    private void appendToResult(String number){
-        if (calculation.toString().equals("0")){
+    private void appendToResult(String number) {
+        if (calculation.toString().equals("0")) {
             calculation.setLength(0);
             calculation.append(number);
         } else {
             calculation.append(number);
         }
-            lblResult.setText(calculation.toString());
+        lblResult.setText(calculation.toString());
     }
 
 }
